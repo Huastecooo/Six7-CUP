@@ -1,0 +1,30 @@
+[
+  {
+    "name": "Six7 Apex Racing",
+    "drivers": [
+      { "number": 1, "name": "Diego Salgado", "image": "img/club/p-1.jpg" },
+      { "number": 5, "name": "Ana Lucía Ponce", "image": "img/club/p-2.jpg" }
+    ]
+  },
+  {
+    "name": "Nocturna GP",
+    "drivers": [
+      { "number": 2, "name": "Valentina Roux", "image": "img/club/p-3.jpg" },
+      { "number": 6, "name": "Bruno Castellano", "image": "img/club/p-4.jpg" }
+    ]
+  },
+  {
+    "name": "Vertex Motorsport",
+    "drivers": [
+      { "number": 3, "name": "Kenji Arata", "image": "img/club/p-5.jpg" },
+      { "number": 4, "name": "Mateo Ferrer", "image": "img/club/p-6.jpg" }
+    ]
+  },
+  {
+    "name": "Frontline Racing",
+    "drivers": [
+      { "number": 7, "name": "Erik Solheim", "image": "img/club/p-1.jpg" },
+      { "number": 8, "name": "Camila Ortiz", "image": "img/club/p-2.jpg" }
+    ]
+  }
+]

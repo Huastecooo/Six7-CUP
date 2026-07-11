@@ -145,98 +145,7 @@
                                         <th>Estado</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr class="status-done">
-                                        <td class="race-round">R01</td>
-                                        <td class="race-info">
-                                            <h4>Bahréin</h4>
-                                            <span>Circuito Internacional de Sakhir</span>
-                                        </td>
-                                        <td class="race-date">15 Mar 2026</td>
-                                        <td class="race-status"><span class="status-badge">Finalizada</span></td>
-                                    </tr>
-                                    <tr class="status-done">
-                                        <td class="race-round">R02</td>
-                                        <td class="race-info">
-                                            <h4>Arabia Saudita</h4>
-                                            <span>Jeddah Corniche Circuit</span>
-                                        </td>
-                                        <td class="race-date">22 Mar 2026</td>
-                                        <td class="race-status"><span class="status-badge">Finalizada</span></td>
-                                    </tr>
-                                    <tr class="status-done">
-                                        <td class="race-round">R03</td>
-                                        <td class="race-info">
-                                            <h4>Australia</h4>
-                                            <span>Albert Park, Melbourne</span>
-                                        </td>
-                                        <td class="race-date">05 Abr 2026</td>
-                                        <td class="race-status"><span class="status-badge">Finalizada</span></td>
-                                    </tr>
-                                    <tr class="status-done">
-                                        <td class="race-round">R04</td>
-                                        <td class="race-info">
-                                            <h4>Japón</h4>
-                                            <span>Suzuka Circuit</span>
-                                        </td>
-                                        <td class="race-date">19 Abr 2026</td>
-                                        <td class="race-status"><span class="status-badge">Finalizada</span></td>
-                                    </tr>
-                                    <tr class="status-done">
-                                        <td class="race-round">R05</td>
-                                        <td class="race-info">
-                                            <h4>China</h4>
-                                            <span>Shanghai International Circuit</span>
-                                        </td>
-                                        <td class="race-date">03 May 2026</td>
-                                        <td class="race-status"><span class="status-badge">Finalizada</span></td>
-                                    </tr>
-                                    <tr class="status-next">
-                                        <td class="race-round">R06</td>
-                                        <td class="race-info">
-                                            <h4>Brasil</h4>
-                                            <span>Autódromo José Carlos Pace, Interlagos</span>
-                                        </td>
-                                        <td class="race-date">17 May 2026</td>
-                                        <td class="race-status"><span class="status-badge">Próxima</span></td>
-                                    </tr>
-                                    <tr class="status-upcoming">
-                                        <td class="race-round">R07</td>
-                                        <td class="race-info">
-                                            <h4>Mónaco</h4>
-                                            <span>Circuit de Monaco</span>
-                                        </td>
-                                        <td class="race-date">31 May 2026</td>
-                                        <td class="race-status"><span class="status-badge">Programada</span></td>
-                                    </tr>
-                                    <tr class="status-upcoming">
-                                        <td class="race-round">R08</td>
-                                        <td class="race-info">
-                                            <h4>Canadá</h4>
-                                            <span>Circuit Gilles Villeneuve</span>
-                                        </td>
-                                        <td class="race-date">14 Jun 2026</td>
-                                        <td class="race-status"><span class="status-badge">Programada</span></td>
-                                    </tr>
-                                    <tr class="status-upcoming">
-                                        <td class="race-round">R09</td>
-                                        <td class="race-info">
-                                            <h4>Gran Bretaña</h4>
-                                            <span>Silverstone Circuit</span>
-                                        </td>
-                                        <td class="race-date">28 Jun 2026</td>
-                                        <td class="race-status"><span class="status-badge">Programada</span></td>
-                                    </tr>
-                                    <tr class="status-upcoming">
-                                        <td class="race-round">R10</td>
-                                        <td class="race-info">
-                                            <h4>Italia</h4>
-                                            <span>Autodromo di Monza</span>
-                                        </td>
-                                        <td class="race-date">12 Jul 2026</td>
-                                        <td class="race-status"><span class="status-badge">Programada</span></td>
-                                    </tr>
-                                </tbody>
+                                <tbody id="scheduleTableBody"></tbody>
                             </table>
                         </div>
                     </div>
@@ -312,6 +221,25 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-lg-4 col-md-6 offset-lg-1">
+                    <div class="fs-widget">
+                        <h4>Equipos</h4>
+                        <ul class="fw-links">
+                            <li><a href="./club.html">Six7 Apex Racing</a></li>
+                            <li><a href="./club.html">Nocturna GP</a></li>
+                            <li><a href="./club.html">Vertex Motorsport</a></li>
+                        </ul>
+                        <ul class="fw-links">
+                            <li><a href="./club.html">Frontline Racing</a></li>
+                            <li><a href="./club.html">Ignition Racing Team</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="fs-widget">
+                        <h4>Últimas noticias</h4>
+                        <div id="footerNewsContainer"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -353,6 +281,7 @@
     <script src="js/jquery.magnific-popup.min.js"></script>
     <script src="js/jquery.slicknav.js"></script>
     <script src="js/owl.carousel.min.js"></script>
+    <script src="js/data-render.js"></script>
     <script src="js/main.js"></script>
 </body>
 

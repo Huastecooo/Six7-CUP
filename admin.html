@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Six 7 Cup | Panel de administración</title>
+<link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600;700;900&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+    --s7-purple:#6C2FD9; --s7-purple-dark:#2E1A8C; --s7-indigo:#1A0F4D; --s7-indigo-darker:#12092E;
+    --s7-magenta:#EC0E7C; --s7-cyan:#1FC8E8; --s7-lime:#D6E637; --s7-white:#fff;
+    --bg:#0d0819; --panel:#161029; --panel-2:#1d1638; --border:#2c2452; --text:#e7e4f5; --text-dim:#9992bd;
+}
+*{box-sizing:border-box;}
+body{
+    margin:0; font-family:'Roboto',sans-serif; background:var(--bg); color:var(--text);
+    min-height:100vh;
+}
+h1,h2,h3,h4,label.title{ font-family:'Titillium Web',sans-serif; }
+a{color:var(--s7-cyan);}
+
+/* ---- top bar ---- */
+.topbar{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 28px; background:var(--panel); border-bottom:1px solid var(--border);
+    position:sticky; top:0; z-index:10;
+}
+.topbar .brand{ display:flex; align-items:center; gap:12px; font-family:'Titillium Web',sans-serif; font-weight:700; font-size:18px;}
+.topbar .brand img{ width:34px; height:34px; border-radius:50%;}
+.topbar .repo-tag{ font-size:13px; color:var(--text-dim); }
+.topbar .repo-tag b{ color:var(--s7-cyan); font-weight:600;}
+.btn{
+    font-family:'Titillium Web',sans-serif; font-weight:700; text-transform:uppercase; letter-spacing:.5px;
+    font-size:13px; padding:10px 20px; border-radius:4px; border:none; cursor:pointer; transition:.2s;
+}
+.btn-primary{ background:var(--s7-magenta); color:#fff;}
+.btn-primary:hover{ background:var(--s7-cyan); color:var(--s7-indigo-darker);}
+.btn-ghost{ background:transparent; color:var(--text-dim); border:1px solid var(--border);}
+.btn-ghost:hover{ color:#fff; border-color:var(--s7-cyan);}
+.btn-small{ padding:6px 12px; font-size:11px;}
+.btn-danger{ background:transparent; color:#ff6a8e; border:1px solid rgba(255,106,142,.4);}
+.btn-danger:hover{ background:rgba(255,106,142,.12);}
+
+/* ---- layout ---- */
+.layout{ display:flex; min-height:calc(100vh - 68px); }
+.sidebar{
+    width:230px; background:var(--panel); border-right:1px solid var(--border); padding:20px 0; flex-shrink:0;
+}
+.sidebar button{
+    display:flex; align-items:center; gap:10px; width:100%; text-align:left; background:none; border:none;
+    color:var(--text-dim); font-family:'Roboto',sans-serif; font-size:14.5px; padding:13px 24px; cursor:pointer;
+    border-left:3px solid transparent; transition:.15s;
+}
+.sidebar button:hover{ color:#fff; background:var(--panel-2); }
+.sidebar button.active{ color:#fff; background:var(--panel-2); border-left-color:var(--s7-magenta); }
+.sidebar .emoji{ font-size:16px; }
+.main{ flex:1; padding:28px 32px; max-width:1100px; }
+.hidden{ display:none !important; }
+
+/* ---- setup screen ---- */
+.setup-wrap{ max-width:520px; margin:60px auto; }
+.setup-card{ background:var(--panel); border:1px solid var(--border); border-radius:10px; padding:36px; }
+.setup-card h1{ font-size:22px; margin:0 0 6px; }
+.setup-card p.desc{ color:var(--text-dim); font-size:14px; line-height:1.6; margin-bottom:26px; }
+.field{ margin-bottom:18px; }
+.field label{ display:block; font-size:13px; color:var(--text-dim); margin-bottom:6px; font-weight:600; }
+.field input, .field select, .field textarea{
+    width:100%; background:var(--panel-2); border:1px solid var(--border); color:#fff; border-radius:4px;
+    padding:11px 13px; font-size:14px; font-family:'Roboto',sans-serif;
+}
+.field input:focus, .field select:focus, .field textarea:focus{ outline:none; border-color:var(--s7-cyan); }
+.field small{ color:var(--text-dim); display:block; margin-top:6px; font-size:12px; line-height:1.5; }
+.setup-card .btn{ width:100%; margin-top:6px; }
+.help-box{
+    background:rgba(31,200,232,.08); border:1px solid rgba(31,200,232,.25); border-radius:6px; padding:14px 16px;
+    font-size:12.5px; color:var(--text-dim); line-height:1.6; margin-bottom:22px;
+}
+.help-box b{ color:var(--s7-cyan); }
+.help-box ol{ margin:8px 0 0 18px; padding:0;}
+
+/* ---- panels ---- */
+.panel-header{ display:flex; align-items:center; justify-content:space-between; margin-bottom:20px; flex-wrap:wrap; gap:12px;}
+.panel-header h2{ margin:0; font-size:22px; }
+.panel-header p{ margin:4px 0 0; color:var(--text-dim); font-size:13.5px;}
+.panel-actions{ display:flex; gap:10px; }
+
+.data-table{ width:100%; border-collapse:collapse; background:var(--panel); border:1px solid var(--border); border-radius:8px; overflow:hidden;}
+.data-table th{
+    text-align:left; background:var(--panel-2); color:var(--text-dim); font-size:11.5px; text-transform:uppercase;
+    letter-spacing:.5px; padding:12px 14px; font-weight:600; border-bottom:1px solid var(--border);
+}
+.data-table td{ padding:6px 8px; border-bottom:1px solid var(--border); vertical-align:middle;}
+.data-table tr:last-child td{ border-bottom:none; }
+.data-table input, .data-table select{
+    width:100%; background:transparent; border:1px solid transparent; color:#fff; padding:8px 8px; border-radius:4px;
+    font-size:13.5px; font-family:'Roboto',sans-serif;
+}
+.data-table input:hover, .data-table select:hover{ border-color:var(--border); }
+.data-table input:focus, .data-table select:focus{ outline:none; border-color:var(--s7-cyan); background:var(--panel-2); }
+.data-table td.col-actions{ width:40px; text-align:center; }
+.row-del{ background:none; border:none; color:#ff6a8e; cursor:pointer; font-size:16px; padding:4px 8px; }
+.row-del:hover{ color:#ff2e63; }
+
+.add-row-btn{
+    margin-top:14px; background:var(--panel); border:1px dashed var(--border); color:var(--text-dim);
+    padding:12px; width:100%; border-radius:6px; cursor:pointer; font-size:13.5px; font-family:'Roboto',sans-serif;
+}
+.add-row-btn:hover{ border-color:var(--s7-cyan); color:#fff; }
+
+.form-card{ background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:24px; }
+.form-grid{ display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+.form-grid .full{ grid-column:1/-1; }
+
+.team-card{ background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:20px; margin-bottom:16px;}
+.team-card-head{ display:flex; align-items:center; gap:12px; margin-bottom:14px; }
+.team-card-head input{ flex:1; background:var(--panel-2); border:1px solid var(--border); color:#fff; padding:10px 12px; border-radius:4px; font-size:15px; font-weight:600;}
+.team-drivers{ display:grid; gap:10px; }
+.team-driver-row{ display:grid; grid-template-columns:70px 1fr 1fr auto; gap:8px; align-items:center;}
+.team-driver-row input{ background:var(--panel-2); border:1px solid var(--border); color:#fff; padding:8px 10px; border-radius:4px; font-size:13px;}
+.add-driver-btn{ margin-top:10px; background:none; border:1px dashed var(--border); color:var(--text-dim); padding:8px; border-radius:4px; cursor:pointer; font-size:12.5px; width:100%;}
+.add-driver-btn:hover{ color:#fff; border-color:var(--s7-cyan);}
+
+.status-bar{
+    position:fixed; bottom:0; left:0; right:0; padding:14px 28px; font-size:13.5px; display:none; align-items:center; gap:10px;
+    z-index:50; border-top:1px solid var(--border);
+}
+.status-bar.show{ display:flex; }
+.status-bar.success{ background:rgba(31,200,232,.14); color:#7fe6f8; border-color:rgba(31,200,232,.4);}
+.status-bar.error{ background:rgba(236,14,124,.14); color:#ff9dc6; border-color:rgba(236,14,124,.4);}
+.status-bar.loading{ background:var(--panel-2); color:var(--text-dim); }
+.spinner{ width:14px; height:14px; border:2px solid rgba(255,255,255,.25); border-top-color:#fff; border-radius:50%; animation:spin .7s linear infinite; }
+@keyframes spin{ to{ transform:rotate(360deg);} }
+
+.badge-status{ font-size:11px; padding:3px 8px; border-radius:3px; text-transform:uppercase; font-weight:700;}
+.status-hint{ color:var(--text-dim); font-size:12px; margin-top:8px; }
+</style>
+</head>
+<body>
+
+<!-- ============ TOP BAR ============ -->
+<div class="topbar">
+    <div class="brand">
+        <img src="img/logo.png" alt="">
+        Six 7 Cup — Panel de administración
+    </div>
+    <div id="topbarRepoInfo" class="repo-tag hidden">
+        Conectado a <b id="repoLabel"></b> · rama <b id="branchLabel"></b>
+        <button class="btn btn-ghost btn-small" id="btnLogout" style="margin-left:14px;">Cambiar repositorio</button>
+    </div>
+</div>
+
+<!-- ============ SETUP SCREEN ============ -->
+<div id="setupScreen" class="setup-wrap">
+    <div class="setup-card">
+        <h1>Conecta tu repositorio de GitHub</h1>
+        <p class="desc">Este panel edita el contenido del sitio (pilotos, calendario, resultados, equipos, noticias) y sube los cambios directamente a tu repositorio en GitHub. Todo lo que escribas aquí se guarda solo en tu navegador, nunca se envía a ningún otro servidor.</p>
+
+        <div class="help-box">
+            <b>¿Cómo consigo el token?</b>
+            <ol>
+                <li>Entra a <a href="https://github.com/settings/tokens?type=beta" target="_blank">github.com/settings/tokens</a></li>
+                <li>Crea un <b>Fine-grained token</b>, dale acceso solo a tu repositorio del sitio</li>
+                <li>En permisos, activa <b>Contents: Read and write</b></li>
+                <li>Copia el token generado y pégalo abajo (empieza con <code>github_pat_</code>)</li>
+            </ol>
+        </div>
+
+        <form id="setupForm">
+            <div class="field">
+                <label>Usuario u organización de GitHub</label>
+                <input type="text" id="cfgOwner" placeholder="ej. tuusuario" required autocomplete="off">
+            </div>
+            <div class="field">
+                <label>Nombre del repositorio</label>
+                <input type="text" id="cfgRepo" placeholder="ej. six7cup-web" required autocomplete="off">
+            </div>
+            <div class="field">
+                <label>Rama</label>
+                <input type="text" id="cfgBranch" placeholder="main" value="main" required autocomplete="off">
+            </div>
+            <div class="field">
+                <label>Carpeta de datos dentro del repo</label>
+                <input type="text" id="cfgDataPath" placeholder="data" value="data" required autocomplete="off">
+                <small>Debe apuntar a la carpeta que contiene drivers.json, schedule.json, etc.</small>
+            </div>
+            <div class="field">
+                <label>Token de acceso personal de GitHub</label>
+                <input type="password" id="cfgToken" placeholder="github_pat_..." required autocomplete="off">
+                <small>Se guarda únicamente en este navegador (localStorage). No se comparte con nadie más.</small>
+            </div>
+            <button type="submit" class="btn btn-primary">Conectar y entrar al panel</button>
+        </form>
+    </div>
+</div>
+
+<!-- ============ DASHBOARD ============ -->
+<div class="layout hidden" id="dashboard">
+    <div class="sidebar">
+        <button data-panel="drivers" class="active"><span class="emoji">🏁</span> Pilotos</button>
+        <button data-panel="constructors"><span class="emoji">🏆</span> Constructores</button>
+        <button data-panel="schedule"><span class="emoji">📅</span> Calendario</button>
+        <button data-panel="results"><span class="emoji">🥇</span> Resultados</button>
+        <button data-panel="teams"><span class="emoji">🛠️</span> Equipos</button>
+        <button data-panel="league"><span class="emoji">ℹ️</span> Info de la liga</button>
+        <button data-panel="news"><span class="emoji">📰</span> Noticias</button>
+    </div>
+
+    <div class="main">
+
+        <!-- PILOTOS -->
+        <div class="panel" id="panel-drivers">
+            <div class="panel-header">
+                <div><h2>Clasificación de pilotos</h2><p>Se muestra en la portada y en Resultados.</p></div>
+                <div class="panel-actions">
+                    <button class="btn btn-ghost btn-small" onclick="reloadPanel('drivers')">Recargar</button>
+                    <button class="btn btn-primary" onclick="savePanel('drivers')">Guardar en GitHub</button>
+                </div>
+            </div>
+            <table class="data-table">
+                <thead><tr><th style="width:70px;">Pos</th><th>Piloto</th><th>Equipo</th><th style="width:100px;">Puntos</th><th></th></tr></thead>
+                <tbody id="tbody-drivers"></tbody>
+            </table>
+            <button class="add-row-btn" onclick="addRow('drivers')">+ Agregar piloto</button>
+        </div>
+
+        <!-- CONSTRUCTORES -->
+        <div class="panel hidden" id="panel-constructors">
+            <div class="panel-header">
+                <div><h2>Clasificación de constructores</h2><p>Tabla de equipos que se muestra en la portada.</p></div>
+                <div class="panel-actions">
+                    <button class="btn btn-ghost btn-small" onclick="reloadPanel('constructors')">Recargar</button>
+                    <button class="btn btn-primary" onclick="savePanel('constructors')">Guardar en GitHub</button>
+                </div>
+            </div>
+            <table class="data-table">
+                <thead><tr><th style="width:60px;">Pos</th><th>Equipo</th><th style="width:70px;">PJ</th><th style="width:70px;">G</th><th style="width:70px;">P</th><th style="width:90px;">Puntos</th><th></th></tr></thead>
+                <tbody id="tbody-constructors"></tbody>
+            </table>
+            <button class="add-row-btn" onclick="addRow('constructors')">+ Agregar equipo</button>
+        </div>
+
+        <!-- CALENDARIO -->
+        <div class="panel hidden" id="panel-schedule">
+            <div class="panel-header">
+                <div><h2>Calendario de carreras</h2><p>Se muestra en la página Calendario.</p></div>
+                <div class="panel-actions">
+                    <button class="btn btn-ghost btn-small" onclick="reloadPanel('schedule')">Recargar</button>
+                    <button class="btn btn-primary" onclick="savePanel('schedule')">Guardar en GitHub</button>
+                </div>
+            </div>
+            <table class="data-table">
+                <thead><tr><th style="width:70px;">Ronda</th><th>Gran Premio</th><th>Circuito</th><th style="width:120px;">Fecha</th><th style="width:130px;">Estado</th><th></th></tr></thead>
+                <tbody id="tbody-schedule"></tbody>
+            </table>
+            <button class="add-row-btn" onclick="addRow('schedule')">+ Agregar carrera</button>
+        </div>
+
+        <!-- RESULTADOS -->
+        <div class="panel hidden" id="panel-results">
+            <div class="panel-header">
+                <div><h2>Resultados de carreras</h2><p>Carreras finalizadas, se muestra en la página Resultados.</p></div>
+                <div class="panel-actions">
+                    <button class="btn btn-ghost btn-small" onclick="reloadPanel('results')">Recargar</button>
+                    <button class="btn btn-primary" onclick="savePanel('results')">Guardar en GitHub</button>
+                </div>
+            </div>
+            <table class="data-table">
+                <thead><tr><th style="width:70px;">Ronda</th><th>Gran Premio</th><th>Ganador</th><th>Equipo</th><th style="width:120px;">Tiempo</th><th></th></tr></thead>
+                <tbody id="tbody-results"></tbody>
+            </table>
+            <button class="add-row-btn" onclick="addRow('results')">+ Agregar resultado</button>
+        </div>
+
+        <!-- EQUIPOS -->
+        <div class="panel hidden" id="panel-teams">
+            <div class="panel-header">
+                <div><h2>Equipos</h2><p>Escuderías y sus pilotos, se muestra en la página Equipos.</p></div>
+                <div class="panel-actions">
+                    <button class="btn btn-ghost btn-small" onclick="reloadPanel('teams')">Recargar</button>
+                    <button class="btn btn-primary" onclick="savePanel('teams')">Guardar en GitHub</button>
+                </div>
+            </div>
+            <div id="teamsEditor"></div>
+            <button class="add-row-btn" onclick="addTeam()">+ Agregar equipo</button>
+        </div>
+
+        <!-- INFO LIGA -->
+        <div class="panel hidden" id="panel-league">
+            <div class="panel-header">
+                <div><h2>Información de la liga</h2><p>Datos generales que aparecen en la página Equipos.</p></div>
+                <div class="panel-actions">
+                    <button class="btn btn-ghost btn-small" onclick="reloadPanel('league')">Recargar</button>
+                    <button class="btn btn-primary" onclick="savePanel('league')">Guardar en GitHub</button>
+                </div>
+            </div>
+            <div class="form-card">
+                <div class="form-grid">
+                    <div class="field"><label>Fundada</label><input id="league-founded"></div>
+                    <div class="field"><label>Plataforma</label><input id="league-platform"></div>
+                    <div class="field"><label>Director general</label><input id="league-director"></div>
+                    <div class="field"><label>Pilotos registrados</label><input id="league-driversRegistered"></div>
+                    <div class="field"><label>Sede</label><input id="league-venue"></div>
+                    <div class="field full"><label>Descripción</label><textarea id="league-description" rows="5"></textarea></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- NOTICIAS -->
+        <div class="panel hidden" id="panel-news">
+            <div class="panel-header">
+                <div><h2>Noticias</h2><p>Las primeras 8 aparecen en "Popular Post" de la portada; las últimas 2 en el footer de todo el sitio.</p></div>
+                <div class="panel-actions">
+                    <button class="btn btn-ghost btn-small" onclick="reloadPanel('news')">Recargar</button>
+                    <button class="btn btn-primary" onclick="savePanel('news')">Guardar en GitHub</button>
+                </div>
+            </div>
+            <table class="data-table">
+                <thead><tr><th>Título</th><th style="width:130px;">Fecha</th><th style="width:150px;">Categoría</th><th></th></tr></thead>
+                <tbody id="tbody-news"></tbody>
+            </table>
+            <button class="add-row-btn" onclick="addRow('news')">+ Agregar noticia</button>
+            <p class="status-hint">Tip: el orden importa. Arrastra no está disponible aún — para reordenar, borra y vuelve a agregar en el orden que quieras.</p>
+        </div>
+
+    </div>
+</div>
+
+<div class="status-bar" id="statusBar"><span id="statusIcon"></span><span id="statusText"></span></div>
+
+<script>
+(function(){
+"use strict";
+
+/* ---------------- Config / storage ---------------- */
+var CFG_KEY = "six7cup_admin_config_v1";
+function loadConfig(){
+    try{ return JSON.parse(localStorage.getItem(CFG_KEY) || "null"); }catch(e){ return null; }
+}
+function saveConfig(cfg){ localStorage.setItem(CFG_KEY, JSON.stringify(cfg)); }
+function clearConfig(){ localStorage.removeItem(CFG_KEY); }
+
+var config = loadConfig();
+
+/* ---------------- Status bar ---------------- */
+var statusBar = document.getElementById("statusBar");
+var statusIcon = document.getElementById("statusIcon");
+var statusText = document.getElementById("statusText");
+var statusTimer = null;
+function showStatus(type, msg, autohide){
+    statusBar.className = "status-bar show " + type;
+    statusIcon.innerHTML = type === "loading" ? '<span class="spinner"></span>' : (type === "success" ? "✅" : "⚠️");
+    statusText.textContent = msg;
+    if(statusTimer) clearTimeout(statusTimer);
+    if(autohide !== false){
+        statusTimer = setTimeout(function(){ statusBar.classList.remove("show"); }, 5000);
+    }
+}
+
+/* ---------------- GitHub API helpers ---------------- */
+function apiBase(){
+    return "https://api.github.com/repos/" + config.owner + "/" + config.repo + "/contents/" + config.dataPath + "/";
+}
+function ghHeaders(){
+    return {
+        "Authorization": "Bearer " + config.token,
+        "Accept": "application/vnd.github+json"
+    };
+}
+function utf8ToBase64(str){
+    var bytes = new TextEncoder().encode(str);
+    var bin = "";
+    bytes.forEach(function(b){ bin += String.fromCharCode(b); });
+    return btoa(bin);
+}
+function base64ToUtf8(b64){
+    var bin = atob(b64.replace(/\n/g, ""));
+    var bytes = new Uint8Array(bin.length);
+    for(var i=0;i<bin.length;i++) bytes[i] = bin.charCodeAt(i);
+    return new TextDecoder().decode(bytes);
+}
+
+function ghGetFile(filename){
+    var url = apiBase() + filename + "?ref=" + encodeURIComponent(config.branch) + "&_=" + Date.now();
+    return fetch(url, { headers: ghHeaders() }).then(function(res){
+        if(res.status === 404){ return { sha: null, data: null }; }
+        if(!res.ok){ return res.json().then(function(e){ throw new Error(e.message || ("Error " + res.status)); }); }
+        return res.json().then(function(json){
+            return { sha: json.sha, data: JSON.parse(base64ToUtf8(json.content)) };
+        });
+    });
+}
+
+function ghPutFile(filename, dataObj, sha, message){
+    var url = apiBase() + filename;
+    var body = {
+        message: message || ("Actualiza " + filename + " desde el panel de administración"),
+        content: utf8ToBase64(JSON.stringify(dataObj, null, 2)),
+        branch: config.branch
+    };
+    if(sha) body.sha = sha;
+    return fetch(url, {
+        method: "PUT",
+        headers: Object.assign({ "Content-Type": "application/json" }, ghHeaders()),
+        body: JSON.stringify(body)
+    }).then(function(res){
+        if(!res.ok){ return res.json().then(function(e){ throw new Error(e.message || ("Error " + res.status)); }); }
+        return res.json();
+    });
+}
+
+/* ---------------- Setup screen ---------------- */
+var setupScreen = document.getElementById("setupScreen");
+var dashboard = document.getElementById("dashboard");
+var topbarRepoInfo = document.getElementById("topbarRepoInfo");
+
+function enterDashboard(){
+    setupScreen.classList.add("hidden");
+    dashboard.classList.remove("hidden");
+    topbarRepoInfo.classList.remove("hidden");
+    document.getElementById("repoLabel").textContent = config.owner + "/" + config.repo;
+    document.getElementById("branchLabel").textContent = config.branch;
+    reloadPanel("drivers");
+}
+
+document.getElementById("setupForm").addEventListener("submit", function(e){
+    e.preventDefault();
+    config = {
+        owner: document.getElementById("cfgOwner").value.trim(),
+        repo: document.getElementById("cfgRepo").value.trim(),
+        branch: document.getElementById("cfgBranch").value.trim() || "main",
+        dataPath: document.getElementById("cfgDataPath").value.trim().replace(/^\/|\/$/g,"") || "data",
+        token: document.getElementById("cfgToken").value.trim()
+    };
+    saveConfig(config);
+    enterDashboard();
+});
+
+document.getElementById("btnLogout").addEventListener("click", function(){
+    if(!confirm("Esto borrará el token guardado en este navegador. ¿Continuar?")) return;
+    clearConfig();
+    config = null;
+    dashboard.classList.add("hidden");
+    topbarRepoInfo.classList.add("hidden");
+    setupScreen.classList.remove("hidden");
+});
+
+if(config && config.owner && config.repo && config.token){
+    enterDashboard();
+}
+
+/* ---------------- Sidebar navigation ---------------- */
+var sidebarButtons = document.querySelectorAll(".sidebar button[data-panel]");
+sidebarButtons.forEach(function(btn){
+    btn.addEventListener("click", function(){
+        sidebarButtons.forEach(function(b){ b.classList.remove("active"); });
+        btn.classList.add("active");
+        document.querySelectorAll(".panel").forEach(function(p){ p.classList.add("hidden"); });
+        var panelEl = document.getElementById("panel-" + btn.dataset.panel);
+        panelEl.classList.remove("hidden");
+        if(!panelEl.dataset.loaded){
+            reloadPanel(btn.dataset.panel);
+        }
+    });
+});
+
+/* ---------------- Generic table schemas ---------------- */
+var SCHEMAS = {
+    drivers: {
+        file: "drivers.json", isArray: true,
+        fields: [
+            {key:"pos", type:"number", w:"70px"},
+            {key:"name", type:"text"},
+            {key:"team", type:"text"},
+            {key:"points", type:"number", w:"100px"}
+        ]
+    },
+    constructors: {
+        file: "constructors.json", isArray: true,
+        fields: [
+            {key:"pos", type:"number", w:"60px"},
+            {key:"team", type:"text"},
+            {key:"played", type:"number", w:"70px"},
+            {key:"wins", type:"number", w:"70px"},
+            {key:"losses", type:"number", w:"70px"},
+            {key:"points", type:"number", w:"90px"}
+        ]
+    },
+    schedule: {
+        file: "schedule.json", isArray: true,
+        fields: [
+            {key:"round", type:"text", w:"70px"},
+            {key:"gp", type:"text"},
+            {key:"circuit", type:"text"},
+            {key:"date", type:"text", w:"120px"},
+            {key:"status", type:"select", w:"130px", options:[["done","Finalizada"],["next","Próxima"],["upcoming","Programada"]]}
+        ]
+    },
+    results: {
+        file: "results.json", isArray: true,
+        fields: [
+            {key:"round", type:"text", w:"70px"},
+            {key:"gp", type:"text"},
+            {key:"winner", type:"text"},
+            {key:"team", type:"text"},
+            {key:"time", type:"text", w:"120px"}
+        ]
+    },
+    news: {
+        file: "news.json", isArray: true,
+        fields: [
+            {key:"title", type:"text"},
+            {key:"date", type:"text", w:"130px"},
+            {key:"tag", type:"text", w:"150px"}
+        ]
+    }
+};
+var cache = {}; // filename data + sha per panel
+
+function emptyRow(panel){
+    var row = {};
+    SCHEMAS[panel].fields.forEach(function(f){ row[f.key] = f.type === "number" ? 0 : ""; });
+    return row;
+}
+
+function renderTable(panel){
+    var schema = SCHEMAS[panel];
+    var tbody = document.getElementById("tbody-" + panel);
+    var rows = cache[panel].data || [];
+    tbody.innerHTML = "";
+    rows.forEach(function(row, idx){
+        var tr = document.createElement("tr");
+        schema.fields.forEach(function(f){
+            var td = document.createElement("td");
+            if(f.type === "select"){
+                var sel = document.createElement("select");
+                f.options.forEach(function(opt){
+                    var o = document.createElement("option");
+                    o.value = opt[0]; o.textContent = opt[1];
+                    if(row[f.key] === opt[0]) o.selected = true;
+                    sel.appendChild(o);
+                });
+                sel.addEventListener("change", function(){ row[f.key] = sel.value; });
+                td.appendChild(sel);
+            } else {
+                var inp = document.createElement("input");
+                inp.type = f.type === "number" ? "number" : "text";
+                inp.value = row[f.key] !== undefined ? row[f.key] : "";
+                inp.addEventListener("input", function(){
+                    row[f.key] = f.type === "number" ? Number(inp.value) : inp.value;
+                });
+                td.appendChild(inp);
+            }
+            tr.appendChild(td);
+        });
+        var tdDel = document.createElement("td");
+        tdDel.className = "col-actions";
+        var delBtn = document.createElement("button");
+        delBtn.className = "row-del"; delBtn.innerHTML = "✕"; delBtn.title = "Eliminar fila";
+        delBtn.addEventListener("click", function(){
+            rows.splice(idx,1);
+            renderTable(panel);
+        });
+        tdDel.appendChild(delBtn);
+        tr.appendChild(tdDel);
+        tbody.appendChild(tr);
+    });
+}
+
+window.addRow = function(panel){
+    if(!cache[panel]) cache[panel] = { data: [] };
+    if(!cache[panel].data) cache[panel].data = [];
+    cache[panel].data.push(emptyRow(panel));
+    renderTable(panel);
+};
+
+/* ---------------- Teams editor (custom, nested) ---------------- */
+function renderTeamsEditor(){
+    var wrap = document.getElementById("teamsEditor");
+    var teams = cache.teams.data || [];
+    wrap.innerHTML = "";
+    teams.forEach(function(team, ti){
+        var card = document.createElement("div");
+        card.className = "team-card";
+
+        var head = document.createElement("div");
+        head.className = "team-card-head";
+        var nameInput = document.createElement("input");
+        nameInput.value = team.name || "";
+        nameInput.placeholder = "Nombre del equipo";
+        nameInput.addEventListener("input", function(){ team.name = nameInput.value; });
+        var delTeamBtn = document.createElement("button");
+        delTeamBtn.className = "btn btn-danger btn-small";
+        delTeamBtn.textContent = "Eliminar equipo";
+        delTeamBtn.addEventListener("click", function(){
+            teams.splice(ti,1);
+            renderTeamsEditor();
+        });
+        head.appendChild(nameInput);
+        head.appendChild(delTeamBtn);
+        card.appendChild(head);
+
+        var driversWrap = document.createElement("div");
+        driversWrap.className = "team-drivers";
+        (team.drivers || []).forEach(function(d, di){
+            var row = document.createElement("div");
+            row.className = "team-driver-row";
+
+            var numInp = document.createElement("input");
+            numInp.type = "number"; numInp.placeholder = "#"; numInp.value = d.number !== undefined ? d.number : "";
+            numInp.addEventListener("input", function(){ d.number = Number(numInp.value); });
+
+            var nameInp = document.createElement("input");
+            nameInp.placeholder = "Nombre del piloto"; nameInp.value = d.name || "";
+            nameInp.addEventListener("input", function(){ d.name = nameInp.value; });
+
+            var imgInp = document.createElement("input");
+            imgInp.placeholder = "img/club/p-1.jpg"; imgInp.value = d.image || "";
+            imgInp.addEventListener("input", function(){ d.image = imgInp.value; });
+
+            var delBtn = document.createElement("button");
+            delBtn.className = "row-del"; delBtn.innerHTML = "✕";
+            delBtn.addEventListener("click", function(){
+                team.drivers.splice(di,1);
+                renderTeamsEditor();
+            });
+
+            row.appendChild(numInp); row.appendChild(nameInp); row.appendChild(imgInp); row.appendChild(delBtn);
+            driversWrap.appendChild(row);
+        });
+        card.appendChild(driversWrap);
+
+        var addDriverBtn = document.createElement("button");
+        addDriverBtn.className = "add-driver-btn";
+        addDriverBtn.textContent = "+ Agregar piloto a este equipo";
+        addDriverBtn.addEventListener("click", function(){
+            if(!team.drivers) team.drivers = [];
+            team.drivers.push({number:"", name:"", image:"img/club/p-1.jpg"});
+            renderTeamsEditor();
+        });
+        card.appendChild(addDriverBtn);
+
+        wrap.appendChild(card);
+    });
+}
+window.addTeam = function(){
+    if(!cache.teams) cache.teams = { data: [] };
+    if(!cache.teams.data) cache.teams.data = [];
+    cache.teams.data.push({ name: "Nuevo equipo", drivers: [] });
+    renderTeamsEditor();
+};
+
+/* ---------------- League (single object form) ---------------- */
+var LEAGUE_FIELDS = ["founded","platform","director","driversRegistered","venue","description"];
+function renderLeagueForm(){
+    var data = cache.league.data || {};
+    LEAGUE_FIELDS.forEach(function(key){
+        var el = document.getElementById("league-" + key);
+        if(el) el.value = data[key] || "";
+    });
+}
+function collectLeagueForm(){
+    var obj = {};
+    LEAGUE_FIELDS.forEach(function(key){
+        var el = document.getElementById("league-" + key);
+        if(el) obj[key] = el.value;
+    });
+    return obj;
+}
+
+/* ---------------- Load / Save per panel ---------------- */
+window.reloadPanel = function(panel){
+    var filename = panel === "teams" ? "teams.json" : (panel === "league" ? "league.json" : SCHEMAS[panel].file);
+    showStatus("loading", "Cargando " + filename + " desde GitHub...", false);
+    ghGetFile(filename).then(function(res){
+        cache[panel] = { sha: res.sha, data: res.data || (panel === "league" ? {} : []) };
+        document.getElementById("panel-" + panel).dataset.loaded = "1";
+        if(panel === "teams"){ renderTeamsEditor(); }
+        else if(panel === "league"){ renderLeagueForm(); }
+        else { renderTable(panel); }
+        statusBar.classList.remove("show");
+    }).catch(function(err){
+        showStatus("error", "No se pudo cargar " + filename + ": " + err.message);
+    });
+};
+
+window.savePanel = function(panel){
+    var filename = panel === "teams" ? "teams.json" : (panel === "league" ? "league.json" : SCHEMAS[panel].file);
+    var dataObj = panel === "league" ? collectLeagueForm() : (cache[panel] ? cache[panel].data : []);
+    showStatus("loading", "Guardando " + filename + " en GitHub...", false);
+    ghPutFile(filename, dataObj, cache[panel] ? cache[panel].sha : null).then(function(res){
+        if(!cache[panel]) cache[panel] = {};
+        cache[panel].sha = res.content.sha;
+        cache[panel].data = dataObj;
+        showStatus("success", "Guardado. Los cambios estarán en tu web en 1-2 minutos.");
+    }).catch(function(err){
+        showStatus("error", "No se pudo guardar: " + err.message);
+    });
+};
+
+})();
+</script>
+</body>
+</html>

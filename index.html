@@ -243,58 +243,7 @@
                                     <th class="th-o">PTS</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td class="team-name">
-                                        <span>Six7 Apex Racing</span>
-                                    </td>
-                                    <td>22</td>
-                                    <td>13</td>
-                                    <td>5</td>
-                                    <td>412</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td class="team-name">
-                                        <span>Nocturna GP</span>
-                                    </td>
-                                    <td>22</td>
-                                    <td>10</td>
-                                    <td>6</td>
-                                    <td>378</td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td class="team-name">
-                                        <span>Vertex Motorsport</span>
-                                    </td>
-                                    <td>22</td>
-                                    <td>7</td>
-                                    <td>8</td>
-                                    <td>301</td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td class="team-name">
-                                        <span>Frontline Racing</span>
-                                    </td>
-                                    <td>22</td>
-                                    <td>4</td>
-                                    <td>10</td>
-                                    <td>240</td>
-                                </tr>
-                                <tr>
-                                    <td>5</td>
-                                    <td class="team-name">
-                                        <span>Ignition Racing Team</span>
-                                    </td>
-                                    <td>22</td>
-                                    <td>2</td>
-                                    <td>12</td>
-                                    <td>176</td>
-                                </tr>
-                            </tbody>
+                            <tbody id="tablaConstructores"></tbody>
                         </table>
                         <a href="result.html" class="p-all">Ver clasificación completa</a>
                     </div>
@@ -304,7 +253,19 @@
     </section>
     <!-- Constructors Championship Section End -->
 
-   
+    <!-- Popular News Section Begin -->
+    <section class="popular-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="section-title">
+                        <h3>Popular <span>Post</span></h3>
+                    </div>
+                    <div class="row" id="popularNewsContainer">
+                        <div class="col-md-6" id="popularNewsCol1"></div>
+                        <div class="col-md-6" id="popularNewsCol2"></div>
+                    </div>
+                </div>
                 <div class="col-lg-4">
                     <div class="section-title">
                         <h3>Follow <span>Us</span></h3>
@@ -361,7 +322,26 @@
                         </div>
                     </div>
                 </div>
-               
+                <div class="col-lg-4 col-md-6 offset-lg-1">
+                    <div class="fs-widget">
+                        <h4>Equipos</h4>
+                        <ul class="fw-links">
+                            <li><a href="./club.html">Six7 Apex Racing</a></li>
+                            <li><a href="./club.html">Nocturna GP</a></li>
+                            <li><a href="./club.html">Vertex Motorsport</a></li>
+                        </ul>
+                        <ul class="fw-links">
+                            <li><a href="./club.html">Frontline Racing</a></li>
+                            <li><a href="./club.html">Ignition Racing Team</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="fs-widget">
+                        <h4>Últimas noticias</h4>
+                        <div id="footerNewsContainer"></div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="container">
@@ -402,6 +382,7 @@
     <script src="js/jquery.magnific-popup.min.js"></script>
     <script src="js/jquery.slicknav.js"></script>
     <script src="js/owl.carousel.min.js"></script>
+    <script src="js/data-render.js"></script>
     <script src="js/main.js"></script>
 </body>
 

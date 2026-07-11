@@ -1,0 +1,12 @@
+[
+  { "round": "R01", "gp": "Bahréin", "circuit": "Circuito Internacional de Sakhir", "date": "15 Mar 2026", "status": "done" },
+  { "round": "R02", "gp": "Arabia Saudita", "circuit": "Jeddah Corniche Circuit", "date": "22 Mar 2026", "status": "done" },
+  { "round": "R03", "gp": "Australia", "circuit": "Albert Park, Melbourne", "date": "05 Abr 2026", "status": "done" },
+  { "round": "R04", "gp": "Japón", "circuit": "Suzuka Circuit", "date": "19 Abr 2026", "status": "done" },
+  { "round": "R05", "gp": "China", "circuit": "Shanghai International Circuit", "date": "03 May 2026", "status": "done" },
+  { "round": "R06", "gp": "Brasil", "circuit": "Autódromo José Carlos Pace, Interlagos", "date": "17 May 2026", "status": "next" },
+  { "round": "R07", "gp": "Mónaco", "circuit": "Circuit de Monaco", "date": "31 May 2026", "status": "upcoming" },
+  { "round": "R08", "gp": "Canadá", "circuit": "Circuit Gilles Villeneuve", "date": "14 Jun 2026", "status": "upcoming" },
+  { "round": "R09", "gp": "Gran Bretaña", "circuit": "Silverstone Circuit", "date": "28 Jun 2026", "status": "upcoming" },
+  { "round": "R10", "gp": "Italia", "circuit": "Autodromo di Monza", "date": "12 Jul 2026", "status": "upcoming" }
+]

@@ -1,0 +1,10 @@
+[
+  { "pos": 1, "name": "Diego Salgado", "team": "Six7 Apex Racing", "points": 268 },
+  { "pos": 2, "name": "Valentina Roux", "team": "Nocturna GP", "points": 241 },
+  { "pos": 3, "name": "Kenji Arata", "team": "Vertex Motorsport", "points": 219 },
+  { "pos": 4, "name": "Mateo Ferrer", "team": "Vertex Motorsport", "points": 198 },
+  { "pos": 5, "name": "Ana Lucía Ponce", "team": "Six7 Apex Racing", "points": 176 },
+  { "pos": 6, "name": "Bruno Castellano", "team": "Nocturna GP", "points": 154 },
+  { "pos": 7, "name": "Erik Solheim", "team": "Frontline Racing", "points": 131 },
+  { "pos": 8, "name": "Camila Ortiz", "team": "Frontline Racing", "points": 109 }
+]

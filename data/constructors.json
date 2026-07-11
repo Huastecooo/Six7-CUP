@@ -1,0 +1,7 @@
+[
+  { "pos": 1, "team": "Six7 Apex Racing", "played": 22, "wins": 13, "losses": 5, "points": 412 },
+  { "pos": 2, "team": "Nocturna GP", "played": 22, "wins": 10, "losses": 6, "points": 378 },
+  { "pos": 3, "team": "Vertex Motorsport", "played": 22, "wins": 7, "losses": 8, "points": 301 },
+  { "pos": 4, "team": "Frontline Racing", "played": 22, "wins": 4, "losses": 10, "points": 240 },
+  { "pos": 5, "team": "Ignition Racing Team", "played": 22, "wins": 2, "losses": 12, "points": 176 }
+]
